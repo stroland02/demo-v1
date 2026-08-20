@@ -9,6 +9,11 @@ env:
   STRIPE_SECRET_KEY: sk_secret_key
   STRIPE_PUBLIC_KEY: pk_pub_key
   NEXT_PUBLIC_STRIPE_PUBLIC_KEY: pk_pub_key
+  # Build-time stand-ins: Next evaluates route modules during page-data collection, and the
+  # AI clients are constructed at module scope, so the build needs a value present even
+  # though CI never calls a model.
+  OPENAI_API_KEY: sk-test-not-a-real-key
+  ANTHROPIC_API_KEY: sk-ant-test-not-a-real-key
   APP_NAME: Furever
   PORT: 3000
   SECRET: S3cr3t
