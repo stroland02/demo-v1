@@ -15,7 +15,7 @@ export type ConciergeTask = 'summarise' | 'triage' | 'moderate';
 const MODEL_BY_TASK = {
   summarise: 'claude-3-5-sonnet-20240620',
   triage: 'gpt-3.5-turbo-0613',
-  moderate: 'text-moderation-latest',
+  moderate: 'omni-moderation',
 } as const;
 
 export interface ConciergeReply {
