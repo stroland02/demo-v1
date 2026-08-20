@@ -4,6 +4,9 @@
 
 import {NextResponse} from 'next/server';
 
+// The report reads live account state; a build must never execute it.
+export const dynamic = 'force-dynamic';
+
 import {
   listTaxProfiles,
   missingTaxRegistration,
