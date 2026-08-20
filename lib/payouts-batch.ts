@@ -26,7 +26,7 @@ export async function refreshBalances(accountIds: string[]) {
   const balances = [];
   for (const accountId of accountIds) {
     for (const attempt of [1, 2]) {
-      const balance = await stripe.balance.retrieve({ stripeAccount: accountId });
+      const balance = await stripe.balance.retrieve({}, { stripeAccount: accountId });
       if (balance.available.length > 0 || attempt === 2) {
         balances.push({ accountId, available: balance.available });
         break;
