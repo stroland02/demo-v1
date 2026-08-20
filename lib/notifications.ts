@@ -4,9 +4,16 @@
 
 import twilio from 'twilio';
 
-const client = twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
+const client = twilio(
+  process.env.TWILIO_ACCOUNT_SID,
+  process.env.TWILIO_AUTH_TOKEN
+);
 
-export async function sendAppointmentReminder(to: string, salonName: string, when: string) {
+export async function sendAppointmentReminder(
+  to: string,
+  salonName: string,
+  when: string
+) {
   const message = await client.messages.create({
     to,
     from: process.env.TWILIO_FROM_NUMBER,
@@ -21,7 +28,7 @@ export async function sendReceiptLink(to: string, url: string) {
     from: process.env.TWILIO_FROM_NUMBER,
     body: `Your receipt: ${url}`,
   });
-  return { sid: message.sid, status: message.status };
+  return {sid: message.sid, status: message.status};
 }
 
 export async function verifySalonPhone(phone: string) {
