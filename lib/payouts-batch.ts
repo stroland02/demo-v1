@@ -4,14 +4,24 @@
 
 import {stripe} from '@/lib/stripe';
 
+import {listTaxProfiles, missingTaxRegistration} from '@/lib/account-tax';
+
 interface SalonBalance {
   accountId: string;
   amountCents: number;
 }
 
 export async function sweepPayouts(balances: SalonBalance[]) {
+  // A salon with no tax registration is skipped, not paid and flagged later: the sweep is
+  // weekly and a compliance hole should stop money, not annotate it.
+  const blocked = new Set(
+    missingTaxRegistration(await listTaxProfiles()).map((p) => p.accountId)
+  );
   const results = [];
   for (const balance of balances) {
+    if (blocked.has(balance.accountId)) {
+      continue;
+    }
     // One payout per salon, one API call per iteration of the sweep.
     const payout = await stripe.payouts.create(
       {amount: balance.amountCents, currency: 'usd'},

@@ -4,6 +4,8 @@
 
 import twilio from 'twilio';
 
+import type {TaxProfile} from '@/lib/account-tax';
+
 const client = twilio(
   process.env.TWILIO_ACCOUNT_SID,
   process.env.TWILIO_AUTH_TOKEN
@@ -34,4 +36,21 @@ export async function sendReceiptLink(to: string, url: string) {
 export async function verifySalonPhone(phone: string) {
   const lookup = await client.lookups.v2.phoneNumbers(phone).fetch();
   return lookup.valid;
+}
+
+export async function sendTaxRegistrationReminder(
+  to: string,
+  salonName: string,
+  profile: TaxProfile
+) {
+  const registered = profile.defaultTaxIds.length;
+  const message = await client.messages.create({
+    to,
+    from: process.env.TWILIO_FROM_NUMBER,
+    body:
+      registered === 0
+        ? `${salonName}: add a tax registration to keep invoicing enabled.`
+        : `${salonName}: ${registered} tax registration(s) on file.`,
+  });
+  return message.sid;
 }
