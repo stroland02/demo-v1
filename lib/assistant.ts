@@ -10,7 +10,7 @@ const openai = new OpenAI();
 
 export async function draftAppointmentSummary(notes: string) {
   const response = await anthropic.messages.create({
-    model: 'claude-3-opus-20240229',
+    model: 'claude-opus-4-8',
     max_tokens: 400,
     messages: [
       {role: 'user', content: `Summarise these grooming notes: ${notes}`},
