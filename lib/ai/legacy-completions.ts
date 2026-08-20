@@ -16,7 +16,7 @@ export async function draftVariants(
   count: number
 ): Promise<CompletionChoice[]> {
   const completion = await openai.completions.create({
-    model: 'text-davinci-003',
+    model: 'gpt-3.5-turbo-instruct',
     prompt,
     n: count,
     max_tokens: 160,
