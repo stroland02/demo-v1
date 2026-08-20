@@ -1,9 +1,9 @@
 name: build
 on:
   push:
-    branches: [master]
+    branches: [main]
   pull_request:
-    branches: [master]
+    branches: [main]
 
 env:
   STRIPE_SECRET_KEY: sk_secret_key
