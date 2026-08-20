@@ -14,7 +14,7 @@ export type ConciergeTask = 'summarise' | 'triage' | 'moderate';
 /** One place to change a model, so a swap is a one-line diff. */
 const MODEL_BY_TASK = {
   summarise: 'claude-3-5-sonnet-20240620',
-  triage: 'gpt-3.5-turbo-0613',
+  triage: 'gpt-3.5-turbo',
   moderate: 'text-moderation-latest',
 } as const;
 
